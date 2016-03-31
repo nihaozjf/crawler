@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>A AWESOME WEB!</title>
+    <link rel ="stylesheet" href="../static/css/semantic.css">
+     <script src={%  static 'js/jquery.min.js'%}></script>
+    <script src={% static 'js/jquery.min.js' %}></script>
+
+    <script src="{% static 'js/semantic.js' %}"></script>
+
+</head>
+<body>
+<div class="ui thin left sidebar inverted vertical menu">
+    <div class="header item">
+
+        <img src="{% static 'images/logo2.png' %}">
+    </div>
+    <div class="item">
+        Document
+        <i class="browser icon"></i>
+    </div>
+    <div class="item">
+        <i class="bar chart icon"></i>
+       <a href="{% url 'chart' %}">charts</a>
+
+    </div>
+    <div class="item">
+
+        Others
+        <i class="idea  icon"></i>
+    </div>
+</div>
+<div class="pusher">
+<div class="ui menu">
+    <div class="header item" id="menu">
+        <i class="home icon"> </i>
+        Menu
+
+    </div>
+    <div class="item">About ME</div>
+    <div class="item">Location</div>
+    <div class="item">Other</div>
+</div>
+ <div class="ui text container ">
+    <div class="ui divided items">
+        {% for item in items%}
+        <div class="item">
+            <div class="content">
+                <div class="header">
+                    {{ item.title }}
+                </div>
+                <div class="description">
+                   <p>
+                      {{ item.description }}
+                   </p>
+                </div>
+                <div class="extra">
+                    <div class="ui label">
+                        安装量:{{ item.install }}
+                    </div>
+                    <div class="ui label">
+                        喜欢:{{ item.likes }}
+                    </div>
+                     <div class="ui label">
+                        评论:{{ item.comments }}
+                    </div>
+                    <div class="ui label">
+                        大小:{{ item.size }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+      {%endfor%}
+
+    </div>
+     <div class="ui pagination menu">
+         {% if items.has_previous %}
+         <a class="item" href="?page={{ items.previous_page_number }}">前一页</a>
+         {% endif %}
+         <div class=" item">
+             page {{ items.number}} of {{ items.paginator.num_pages }}
+
+         </div>
+         {% if items.has_next %}
+         <a class="item" href="?page={{ items.next_page_number }}"> 下一页 </a>
+         {% endif %}
+     </div>
+
+
+ </div>
+</div>
+<script>
+    $('#menu').click(function () {
+        $('.ui.sidebar').sidebar('toggle')
+    })
+</script>
+</body>
+</html>
